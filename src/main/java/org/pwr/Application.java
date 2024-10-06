@@ -1,5 +1,6 @@
 package org.pwr;
 
+import org.pwr.combinator.impl.HalfCombinator;
 import org.pwr.fitnessevaluator.impl.BasicEvaluator;
 import org.pwr.selector.Selector;
 import org.pwr.selector.impl.RankSelector;
@@ -34,6 +35,6 @@ public class Application {
             population.add(new Genotype(genome));
         }
 
-        return new Population(population, new RankSelector(new BasicEvaluator(people)));
+        return new Population(population, new RankSelector(new BasicEvaluator(people)), new HalfCombinator());
     }
 }

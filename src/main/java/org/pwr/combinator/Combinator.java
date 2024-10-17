@@ -1,7 +1,8 @@
 package org.pwr.combinator;
 
 import org.pwr.Genotype;
+import java.util.List;
 
 public interface Combinator {
-    public Genotype crossover(Genotype a, Genotype b);
+    List<Genotype> createOffsprings(List<Genotype> parentPool, int count);
 }

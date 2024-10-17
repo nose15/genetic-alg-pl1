@@ -1,40 +1,45 @@
 package org.pwr;
 
+import org.apache.commons.math3.ml.neuralnet.sofm.util.ExponentialDecayFunction;
+import org.pwr.combinator.Combinator;
 import org.pwr.combinator.impl.HalfCombinator;
+import org.pwr.fitnessevaluator.FitnessEvaluator;
 import org.pwr.fitnessevaluator.impl.BasicEvaluator;
 import org.pwr.selector.Selector;
 import org.pwr.selector.impl.RankSelector;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-
-// TODO: Cleanup
-// TODO: Advance further
-// I want the cleanup first so we have a nice foundation to build the algorithm on
+import static org.pwr.Utils.*;
 
 public class Application {
     public static void main(String[] args) {
         String filePath = "/home/lukasz/Studia/3_sem/jezyki_programowania/1_lab/data";
+        int size = 1000;
+
         List<Person> people = Parser.parsePeopleFromFile(filePath);
-        var population = generateRandomPopulation(10, 5, people);
-        population.evolve();
-    }
+        ExponentialDecayFunction exponentialDecayFunction = new ExponentialDecayFunction(0.1, 0.0001, size);
+        List<Double> cumulativeProbabilities = calculateCumulativeProbabilities(size, exponentialDecayFunction);
+        List<Genotype> individuals = generateRandomIndividuals(size, people);
 
-    public static Population generateRandomPopulation(int size, int geneValues, List<Person> people) {
-        Random random = new Random();
-        List<Genotype> population = new ArrayList<>();
+        Combinator combinator = new HalfCombinator();
+        FitnessEvaluator fitnessEvaluator = new BasicEvaluator(people);
+        Selector selector = new RankSelector(fitnessEvaluator, cumulativeProbabilities);
+        Population population = new Population(selector, combinator);
+        population.setPopulation(individuals);
 
-        for (int i = 0; i < size; i++) {
-            Map<Integer, List<Integer>> genome = new HashMap<>();
-            for (int j = 0; j < people.size() - 1; j++) {
-                List<Integer> connections = random.ints(geneValues, 0, people.size() - 1).boxed().collect(Collectors.toList());
-                genome.put(j, connections);
+        int counter = 0;
+        while (counter < 20) {
+            EvolutionResult evolutionResult = population.evolve();
+
+            if (!evolutionResult.hasImproved) {
+                counter++;
+            } else {
+                counter = 0;
             }
-
-            population.add(new Genotype(genome));
         }
 
-        return new Population(population, new RankSelector(new BasicEvaluator(people)), new HalfCombinator());
+        System.out.println("Score: ");
+        displayScore(population, people);
     }
 }

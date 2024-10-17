@@ -7,7 +7,25 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class HalfCombinator implements Combinator {
+
     @Override
+    public List<Genotype> createOffsprings(List<Genotype> parentPool, int count) {
+        List<Genotype> result = new ArrayList<>();
+        Collections.shuffle(parentPool);
+        int i = 0;
+        while (result.size() < count) {
+            result.add(crossover(parentPool.get(i), parentPool.get(i + 1)));
+            i++;
+            if (i >= parentPool.size() - 2) {
+                i = 0;
+                Collections.shuffle(parentPool);
+            }
+        }
+
+        return result;
+    }
+
+
     public Genotype crossover(Genotype a, Genotype b) {
         var genomeA = a.getGenome();
         var genomeB = b.getGenome();
@@ -27,4 +45,5 @@ public class HalfCombinator implements Combinator {
 
         return new Genotype(newGenome);
     }
+
 }

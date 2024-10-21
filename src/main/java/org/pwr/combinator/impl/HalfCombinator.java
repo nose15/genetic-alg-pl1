@@ -2,11 +2,21 @@ package org.pwr.combinator.impl;
 
 import org.pwr.Genotype;
 import org.pwr.combinator.Combinator;
+import org.pwr.mutator.Mutator;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class HalfCombinator implements Combinator {
+    final Mutator mutator;
+
+    public HalfCombinator(Mutator mutator) {
+        this.mutator = mutator;
+    }
+
+    public HalfCombinator() {
+        this.mutator = null;
+    }
 
     @Override
     public List<Genotype> createOffsprings(List<Genotype> parentPool, int count) {
@@ -14,7 +24,13 @@ public class HalfCombinator implements Combinator {
         Collections.shuffle(parentPool);
         int i = 0;
         while (result.size() < count) {
-            result.add(crossover(parentPool.get(i), parentPool.get(i + 1)));
+            Genotype offSpring = crossover(parentPool.get(i), parentPool.get(i + 1));
+
+            if (mutator != null) {
+                offSpring = mutator.mutate(offSpring);
+            }
+
+            result.add(offSpring);
             i++;
             if (i >= parentPool.size() - 2) {
                 i = 0;
@@ -25,8 +41,7 @@ public class HalfCombinator implements Combinator {
         return result;
     }
 
-
-    public Genotype crossover(Genotype a, Genotype b) {
+    private Genotype crossover(Genotype a, Genotype b) {
         var genomeA = a.getGenome();
         var genomeB = b.getGenome();
         Map<Integer, List<Integer>> newGenome = new HashMap<>();

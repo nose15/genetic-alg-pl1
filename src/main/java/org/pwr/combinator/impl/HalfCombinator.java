@@ -3,19 +3,20 @@ package org.pwr.combinator.impl;
 import org.pwr.Genotype;
 import org.pwr.combinator.Combinator;
 import org.pwr.mutator.Mutator;
+import org.pwr.mutator.impl.NoOpMutator;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class HalfCombinator implements Combinator {
-    final Mutator mutator;
+    final private Mutator mutator;
 
     public HalfCombinator(Mutator mutator) {
         this.mutator = mutator;
     }
 
     public HalfCombinator() {
-        this.mutator = null;
+        this.mutator = new NoOpMutator();
     }
 
     @Override
@@ -25,10 +26,7 @@ public class HalfCombinator implements Combinator {
         int i = 0;
         while (result.size() < count) {
             Genotype offSpring = crossover(parentPool.get(i), parentPool.get(i + 1));
-
-            if (mutator != null) {
-                offSpring = mutator.mutate(offSpring);
-            }
+            offSpring = mutator.mutate(offSpring);
 
             result.add(offSpring);
             i++;

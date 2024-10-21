@@ -1,6 +1,6 @@
 package org.pwr.selector;
 
-import org.pwr.geneticalgorithm.BestFitWithScoreDTO;
+import org.pwr.dtos.BestFitWithScoreDTO;
 import org.pwr.geneticalgorithm.Genotype;
 
 import java.util.List;

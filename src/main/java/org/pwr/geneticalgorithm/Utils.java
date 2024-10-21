@@ -1,5 +1,7 @@
 package org.pwr.geneticalgorithm;
 
+import org.pwr.dtos.GenAlgResult;
+
 import java.util.*;
 
 public class Utils {
@@ -29,9 +31,9 @@ public class Utils {
         return individuals;
     }
 
-    public static void displayScore(Population population, List<Person> people) {
-        System.out.println("The best solution with score = " + population.getHighestScore());
-        Map<Integer, List<Integer>> genome = population.getBestFit().getGenome();
+    public static void displayScore(GenAlgResult genAlgResult, List<Person> people) {
+        System.out.println("The best solution with score = " + genAlgResult.score);
+        Map<Integer, List<Integer>> genome = genAlgResult.genome;
 
         for (int i : genome.keySet()) {
             StringBuilder stringBuilder = new StringBuilder((i + 1) + ". Searched for: ");

@@ -1,4 +1,6 @@
-package org.pwr.geneticalgorithm;
+package org.pwr.dtos;
+
+import org.pwr.geneticalgorithm.Genotype;
 
 public class BestFitWithScoreDTO {
     public double score;

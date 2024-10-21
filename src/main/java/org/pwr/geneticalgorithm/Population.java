@@ -2,6 +2,7 @@ package org.pwr.geneticalgorithm;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.pwr.combinator.Combinator;
+import org.pwr.dtos.BestFitWithScoreDTO;
 import org.pwr.selector.Selector;
 
 import java.util.ArrayList;

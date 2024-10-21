@@ -6,6 +6,7 @@ import org.pwr.combinator.impl.HalfCombinator;
 import org.pwr.fitnessevaluator.FitnessEvaluator;
 import org.pwr.fitnessevaluator.impl.BasicEvaluator;
 import org.pwr.selector.Selector;
+import org.pwr.selector.impl.ExponentialDiscreteDistribution;
 import org.pwr.selector.impl.RankSelector;
 
 import java.util.*;
@@ -19,13 +20,14 @@ public class Application {
 
         List<Person> people = Parser.parsePeopleFromFile(filePath);
         ExponentialDecayFunction exponentialDecayFunction = new ExponentialDecayFunction(0.1, 0.0001, size);
-        List<Double> cumulativeProbabilities = calculateCumulativeProbabilities(size, exponentialDecayFunction);
+        ExponentialDiscreteDistribution discreteDistribution = new ExponentialDiscreteDistribution(exponentialDecayFunction, size);
         List<Genotype> individuals = generateRandomIndividuals(size, people);
 
         Combinator combinator = new HalfCombinator();
         FitnessEvaluator fitnessEvaluator = new BasicEvaluator(people);
-        Selector selector = new RankSelector(fitnessEvaluator, cumulativeProbabilities);
+        Selector selector = new RankSelector(fitnessEvaluator, discreteDistribution);
         Population population = new Population(selector, combinator);
+
         population.setPopulation(individuals);
 
         int counter = 0;

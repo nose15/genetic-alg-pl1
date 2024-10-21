@@ -1,7 +1,5 @@
 package org.pwr;
 
-import org.apache.commons.math3.ml.neuralnet.sofm.util.ExponentialDecayFunction;
-
 import java.util.*;
 
 public class Utils {
@@ -29,23 +27,6 @@ public class Utils {
         }
 
         return population;
-    }
-
-    public static List<Double> calculateCumulativeProbabilities(int count, ExponentialDecayFunction exponentialDecayFunction) {
-        List<Double> cumulativeProbabilities = new ArrayList<>();
-        Double sum = 0.0;
-        for (int i = 0; i < count; i++) {
-            double valueAtI = exponentialDecayFunction.value(i);
-            sum += valueAtI;
-            cumulativeProbabilities.add(sum);
-        }
-
-        List<Double> normalizedProbabilities = new ArrayList<>();
-        for (Double cumulativeProbability : cumulativeProbabilities) {
-            normalizedProbabilities.add(Math.floor((cumulativeProbability / sum) * 1000000) / 1000000);
-        }
-
-        return normalizedProbabilities;
     }
 
     public static void displayScore(Population population, List<Person> people) {

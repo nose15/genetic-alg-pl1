@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public class RankSelector implements Selector {
     final private FitnessEvaluator fitnessEvaluator;
-    final private List<Double> cumulativeProbabilities;
+    final private ExponentialDiscreteDistribution exponentialDiscDist;
 
-    public RankSelector(FitnessEvaluator fitnessEvaluator, List<Double> cumulativeProbabilities) {
+    public RankSelector(FitnessEvaluator fitnessEvaluator, ExponentialDiscreteDistribution exponentialProbDist) {
         this.fitnessEvaluator = fitnessEvaluator;
-        this.cumulativeProbabilities = cumulativeProbabilities;
+        this.exponentialDiscDist = exponentialProbDist;
     }
 
     @Override
@@ -30,21 +30,13 @@ public class RankSelector implements Selector {
         List<Genotype> pickedParents = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
-            Random random = new Random();
-            double n = random.doubles(1, 0, 1).sum();
-
-            int index = -1;
-            double cumulativeProb = 0;
-            do {
-                index++;
-                cumulativeProb = cumulativeProbabilities.get(index);
-            } while (n > cumulativeProb && index < from.size() - 1);
-
+            int index = exponentialDiscDist.randomNumber(from.size() - 1);
             pickedParents.add(from.get(index));
         }
 
         return pickedParents;
     }
+
 
     @Override
     public BestFitWithScoreDTO selectBestFitWithScore(List<Genotype> population) {

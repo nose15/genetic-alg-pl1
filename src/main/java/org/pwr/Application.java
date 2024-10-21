@@ -60,7 +60,7 @@ public class Application {
 
         if (cmd.hasOption('p')) {
             try {
-                selectionPressure = Double.parseDouble(cmd.getOptionValue('s'));
+                selectionPressure = Double.parseDouble(cmd.getOptionValue('p'));
             } catch (NumberFormatException e) {
                 System.out.println("Invalid argument for pressure");
                 System.exit(1);

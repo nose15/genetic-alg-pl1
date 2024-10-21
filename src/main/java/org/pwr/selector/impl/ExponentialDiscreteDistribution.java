@@ -37,11 +37,10 @@ public class ExponentialDiscreteDistribution {
             cumulativeProbabilities.add(sum);
         }
 
-        return normalizeProbabilities(cumulativeProbabilities);
+        return normalizeProbabilities(cumulativeProbabilities, sum);
     }
 
-    private List<Double> normalizeProbabilities(List<Double> probabilities) {
-        double sum = probabilities.stream().mapToDouble(Double::doubleValue).sum();
+    private List<Double> normalizeProbabilities(List<Double> probabilities, double sum) {
         return probabilities.stream().map(i -> normalize(i, sum)).collect(Collectors.toList());
     }
 

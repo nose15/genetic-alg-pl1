@@ -1,7 +1,7 @@
 package org.pwr.selector.impl;
 
-import org.pwr.BestFitWithScoreDTO;
-import org.pwr.Genotype;
+import org.pwr.geneticalgorithm.BestFitWithScoreDTO;
+import org.pwr.geneticalgorithm.Genotype;
 import org.pwr.fitnessevaluator.FitnessEvaluator;
 import org.pwr.selector.Selector;
 

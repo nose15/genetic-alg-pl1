@@ -1,11 +1,11 @@
-package org.pwr;
+package org.pwr.geneticalgorithm;
 
 import java.util.*;
 
 public class Utils {
     public static List<Genotype> generateRandomIndividuals(int size, List<Person> people) {
         Random random = new Random();
-        List<Genotype> population = new ArrayList<>();
+        List<Genotype> individuals = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
             Map<Integer, List<Integer>> genome = new HashMap<>();
@@ -23,10 +23,10 @@ public class Utils {
                 genome.put(j, connections);
             }
 
-            population.add(new Genotype(genome));
+            individuals.add(new Genotype(genome));
         }
 
-        return population;
+        return individuals;
     }
 
     public static void displayScore(Population population, List<Person> people) {

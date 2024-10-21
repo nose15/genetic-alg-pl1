@@ -5,13 +5,17 @@ import org.pwr.combinator.Combinator;
 import org.pwr.combinator.impl.HalfCombinator;
 import org.pwr.fitnessevaluator.FitnessEvaluator;
 import org.pwr.fitnessevaluator.impl.BasicEvaluator;
+import org.pwr.geneticalgorithm.EvolutionResult;
+import org.pwr.geneticalgorithm.Genotype;
+import org.pwr.geneticalgorithm.Person;
+import org.pwr.geneticalgorithm.Population;
 import org.pwr.selector.Selector;
 import org.pwr.selector.impl.ExponentialDiscreteDistribution;
 import org.pwr.selector.impl.RankSelector;
 
 import java.util.*;
 
-import static org.pwr.Utils.*;
+import static org.pwr.geneticalgorithm.Utils.*;
 
 public class Application {
     public static void main(String[] args) {

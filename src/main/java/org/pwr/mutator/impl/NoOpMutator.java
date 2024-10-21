@@ -1,6 +1,6 @@
 package org.pwr.mutator.impl;
 
-import org.pwr.Genotype;
+import org.pwr.geneticalgorithm.Genotype;
 import org.pwr.mutator.Mutator;
 
 public class NoOpMutator implements Mutator {

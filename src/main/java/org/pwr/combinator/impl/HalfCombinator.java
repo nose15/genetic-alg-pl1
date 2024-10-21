@@ -1,6 +1,6 @@
 package org.pwr.combinator.impl;
 
-import org.pwr.Genotype;
+import org.pwr.geneticalgorithm.Genotype;
 import org.pwr.combinator.Combinator;
 import org.pwr.mutator.Mutator;
 import org.pwr.mutator.impl.NoOpMutator;

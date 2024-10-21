@@ -1,5 +1,7 @@
 package org.pwr;
 
+import org.pwr.geneticalgorithm.Person;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

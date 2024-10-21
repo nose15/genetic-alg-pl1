@@ -1,4 +1,4 @@
-package org.pwr;
+package org.pwr.geneticalgorithm;
 
 public class BestFitWithScoreDTO {
     public double score;

@@ -1,4 +1,4 @@
-package org.pwr;
+package org.pwr.geneticalgorithm;
 
 import java.util.List;
 

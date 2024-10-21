@@ -1,11 +1,10 @@
-package org.pwr;
+package org.pwr.geneticalgorithm;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.pwr.combinator.Combinator;
 import org.pwr.selector.Selector;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Population {

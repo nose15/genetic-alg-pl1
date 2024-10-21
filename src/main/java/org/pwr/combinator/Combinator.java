@@ -1,6 +1,6 @@
 package org.pwr.combinator;
 
-import org.pwr.Genotype;
+import org.pwr.geneticalgorithm.Genotype;
 import java.util.List;
 
 public interface Combinator {

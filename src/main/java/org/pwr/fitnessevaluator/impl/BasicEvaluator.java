@@ -1,11 +1,9 @@
 package org.pwr.fitnessevaluator.impl;
 
-import org.pwr.Genotype;
-import org.pwr.Person;
+import org.pwr.geneticalgorithm.Genotype;
+import org.pwr.geneticalgorithm.Person;
 import org.pwr.fitnessevaluator.FitnessEvaluator;
 
-import javax.naming.spi.ObjectFactoryBuilder;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

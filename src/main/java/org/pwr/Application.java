@@ -14,6 +14,7 @@ public class Application {
         options.addOption("f", "file", true, "Data source file (mandatory)");
         options.addOption("s", "size", true, "Count of individuals in the population (1000 by default)");
         options.addOption("p", "pressure", true, "Selection pressure to be applied (0.1 by default)");
+        options.addOption("m", "mutation", true, "Mutation strength to be applied (0.1 by default)");
 
         CommandLineParser commandLineParser = new DefaultParser();
         CommandLine cmd = null;
@@ -28,7 +29,7 @@ public class Application {
         String filePath = null;
         int size = 1000;
         double selectionPressure = 0.1;
-
+        double mutationStrength = 0.1;
 
         if (cmd.hasOption('f')) {
             filePath = cmd.getOptionValue('f');
@@ -49,6 +50,24 @@ public class Application {
         if (cmd.hasOption('p')) {
             try {
                 selectionPressure = Double.parseDouble(cmd.getOptionValue('p'));
+                if (selectionPressure > 1 || selectionPressure < 0) {
+                    System.out.println("Selection pressure should be in range <0; 1>");
+                    System.exit(1);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid argument for pressure");
+                System.exit(1);
+            }
+        }
+
+
+        if (cmd.hasOption('m')) {
+            try {
+                mutationStrength = Double.parseDouble(cmd.getOptionValue('m'));
+                if (mutationStrength > 1 || mutationStrength < 0) {
+                    System.out.println("Selection pressure should be in range <0; 1>");
+                    System.exit(1);
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid argument for pressure");
                 System.exit(1);
@@ -57,7 +76,7 @@ public class Application {
 
         List<Person> people = Parser.parsePeopleFromFile(filePath);
         System.out.println(people.size());
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(size, selectionPressure, people);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(size, selectionPressure, mutationStrength, people);
 
         GenAlgResult result = geneticAlgorithm.run();
         displayScore(result, people);

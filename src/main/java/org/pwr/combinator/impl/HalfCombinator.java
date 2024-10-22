@@ -26,6 +26,8 @@ public class HalfCombinator implements Combinator {
         int i = 0;
         while (result.size() < count) {
             Genotype offSpring = crossover(parentPool.get(i), parentPool.get(i + 1));
+
+
             offSpring = mutator.mutate(offSpring);
 
             result.add(offSpring);
@@ -59,4 +61,10 @@ public class HalfCombinator implements Combinator {
         return new Genotype(newGenome);
     }
 
+    private boolean mutateOffspring() {
+        Random random = new Random();
+        double randomNum = random.doubles(1, 0, 1).findFirst().orElse(0);
+
+        return randomNum > 0.1;
+    }
 }

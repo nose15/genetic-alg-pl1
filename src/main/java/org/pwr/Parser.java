@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public class Parser {
     public static List<Person> parsePeopleFromFile(String filePath) {
         List<String> lines = readLines(filePath);
+
         return lines.stream()
                 .map(Parser::parsePerson)
                 .collect(Collectors.toList());
@@ -35,7 +36,9 @@ public class Parser {
 
     private static Person parsePerson(String personString) {
         List<String> words = List.of(personString.split("\t"));
-        assert words.size() == 3 : "Wrong data format";
+        if (words.size() != 3) {
+            throw new IllegalArgumentException("Invalid data format");
+        }
 
         int id = Integer.parseInt(words.get(0));
         List<String> professions = parseListOfProfessions(words.get(1));

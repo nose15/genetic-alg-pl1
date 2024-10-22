@@ -1,20 +1,8 @@
 package org.pwr;
 
 import org.apache.commons.cli.*;
-import org.apache.commons.math3.ml.neuralnet.sofm.util.ExponentialDecayFunction;
-import org.pwr.combinator.Combinator;
-import org.pwr.combinator.impl.HalfCombinator;
 import org.pwr.dtos.GenAlgResult;
-import org.pwr.fitnessevaluator.FitnessEvaluator;
-import org.pwr.fitnessevaluator.impl.BasicEvaluator;
-import org.pwr.geneticalgorithm.EvolutionResult;
-import org.pwr.geneticalgorithm.Genotype;
 import org.pwr.geneticalgorithm.Person;
-import org.pwr.geneticalgorithm.Population;
-import org.pwr.selector.Selector;
-import org.pwr.selector.impl.ExponentialDiscreteDistribution;
-import org.pwr.selector.impl.RankSelector;
-
 import java.util.*;
 
 import static org.pwr.geneticalgorithm.Utils.*;
@@ -68,6 +56,7 @@ public class Application {
         }
 
         List<Person> people = Parser.parsePeopleFromFile(filePath);
+        System.out.println(people.size());
         GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(size, selectionPressure, people);
 
         GenAlgResult result = geneticAlgorithm.run();

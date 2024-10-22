@@ -5,7 +5,7 @@ import org.pwr.mutator.Mutator;
 
 public class NoOpMutator implements Mutator {
     @Override
-    public Genotype mutate(Genotype a) {
-        return a;
+    public Genotype mutate(Genotype base) {
+        return base;
     }
 }

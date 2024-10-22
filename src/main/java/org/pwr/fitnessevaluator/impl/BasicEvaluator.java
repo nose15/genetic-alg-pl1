@@ -4,6 +4,7 @@ import org.pwr.geneticalgorithm.Genotype;
 import org.pwr.geneticalgorithm.Person;
 import org.pwr.fitnessevaluator.FitnessEvaluator;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,11 +33,20 @@ public class BasicEvaluator implements FitnessEvaluator {
 
             for (Person person : matchedPeople) {
                 for (String profession : person.professions) {
-                    if (searcher.preferences.contains(profession)) {
-                        score += 2;
-                    } else {
-                        score -= 1;
+                    int foundProffesions = Collections.frequency(searcher.preferences, profession);
+                    int signum = Integer.signum(foundProffesions - 1);
+
+                    switch (signum) {
+                        case 0:
+                            score += 4;
+                            break;
+                        case 1:
+                            score += 2;
+                            break;
+                        case -1:
+                            score -= 2;
                     }
+
                 }
             }
         }

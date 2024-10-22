@@ -7,6 +7,8 @@ import org.pwr.dtos.GenAlgResult;
 import org.pwr.fitnessevaluator.FitnessEvaluator;
 import org.pwr.fitnessevaluator.impl.BasicEvaluator;
 import org.pwr.geneticalgorithm.*;
+import org.pwr.mutator.Mutator;
+import org.pwr.mutator.impl.BasicMutator;
 import org.pwr.selector.Selector;
 import org.pwr.selector.impl.ExponentialDiscreteDistribution;
 import org.pwr.selector.impl.RankSelector;
@@ -24,7 +26,7 @@ public class GeneticAlgorithm {
 
     public GenAlgResult run() {
         int counter = 0;
-        while (counter < 30) {
+        while (counter < 100) {
             EvolutionResult evolutionResult = population.evolve();
 
             if (!evolutionResult.hasImproved) {
@@ -41,6 +43,7 @@ public class GeneticAlgorithm {
         ExponentialDecayFunction exponentialDecayFunction = new ExponentialDecayFunction(selectionPressure, 0.0001, size);
         ExponentialDiscreteDistribution discreteDistribution = new ExponentialDiscreteDistribution(exponentialDecayFunction, size);
 
+//        Mutator mutator = new BasicMutator(people.size(), 0.05);
         Combinator combinator = new HalfCombinator();
         FitnessEvaluator fitnessEvaluator = new BasicEvaluator(people);
         Selector selector = new RankSelector(fitnessEvaluator, discreteDistribution);
